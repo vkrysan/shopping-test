@@ -1,12 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearchQuery } from '../redux/productSlice';
-import { RootState } from '../redux/store';
+import { setSearchQuery } from '../../redux/productSlice';
+import { RootState } from '../../redux/store';
 import { TextField } from '@mui/material';
 
-// Определяем интерфейс для пропсов
 interface SearchBarProps {
-  onSearch: (query: string) => void; // Ожидаемый пропс onSearch
+  onSearch: (query: string) => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = () => {
@@ -15,7 +14,7 @@ const SearchBar: React.FC<SearchBarProps> = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value;
-    dispatch(setSearchQuery(query)); // Обновляем строку поиска в Redux
+    dispatch(setSearchQuery(query)); 
   };
 
   return (

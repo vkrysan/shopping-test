@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Product } from '../types'; // Импортируем оба интерфейса
- 
+import { Product } from '../types';
+
 interface ProductState {
-  products: Product[];  // Указываем, что products - это массив объектов типа Product
+  products: Product[];
   loading: boolean;
   error: string | null;
   searchQuery: string;
+  sortOrder: 'asc' | 'desc';
 }
 
 const initialState: ProductState = {
@@ -14,11 +15,12 @@ const initialState: ProductState = {
   loading: false,
   error: null,
   searchQuery: '',
+  sortOrder: 'asc', 
 };
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
   const response = await axios.get('https://fakestoreapi.com/products');
-  return response.data; // Предполагаем, что API возвращает массив продуктов
+  return response.data;
 });
 
 const productSlice = createSlice({
@@ -28,6 +30,9 @@ const productSlice = createSlice({
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
     },
+    setSortOrder: (state, action) => {
+      state.sortOrder = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -36,7 +41,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = action.payload; // Здесь вы загружаете продукты
+        state.products = action.payload;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
@@ -45,6 +50,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { setSearchQuery } = productSlice.actions;
+export const { setSearchQuery, setSortOrder } = productSlice.actions;
 
 export default productSlice.reducer;

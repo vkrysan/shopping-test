@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux'; // Импортируем Provider
-import store from './redux/store'; // Импортируем созданный store
-import App from './App'; // Корневой компонент приложения
+import { Provider } from 'react-redux';
+import store from './redux/store'; 
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}> {/* Оборачиваем приложение в Provider */}
+    <Provider store={store}>
       <App />
     </Provider>
   </React.StrictMode>
